@@ -88,9 +88,9 @@ public class ShopServiceRestController {
     }
 
     private void crossData(ShopService service, ShopService editedService){
-        service.setTitle(service.getTitle());
-        service.setPrice(service.getPrice());
-        service.setDescription(service.getDescription());
+        service.setTitle(editedService.getTitle());
+        service.setPrice(editedService.getPrice());
+        service.setDescription(editedService.getDescription());
     }
 
     @DeleteMapping("/{id}")

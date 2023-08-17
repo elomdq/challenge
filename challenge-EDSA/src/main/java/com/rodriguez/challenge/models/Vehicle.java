@@ -1,6 +1,7 @@
 package com.rodriguez.challenge.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.lang.NonNull;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Hidden
 @Table(name = "vehicles")
 public class Vehicle implements Serializable {
 

@@ -2,28 +2,30 @@ package com.rodriguez.client.controllers;
 
 import com.rodriguez.client.models.ShopServiceDTO;
 import com.rodriguez.client.models.VehicleDTO;
-import com.rodriguez.client.services.MenuDisplayService;
+import com.rodriguez.client.services.ShopServiceMenuDisplay;
+import com.rodriguez.client.services.VehicleMenuDisplayService;
 import com.rodriguez.client.services.ShopServiceService;
 import com.rodriguez.client.services.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
 import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 @Controller
 public class MenuDisplayController {
 
     @Autowired
-    MenuDisplayService menuDisplayService;
+    VehicleMenuDisplayService vehicleMenuDisplayService;
+
+    @Autowired
+    ShopServiceMenuDisplay shopServiceMenuDisplay;
 
     @Autowired
     private VehicleService vehicleService;
-
     @Autowired
     private ShopServiceService service;
+
 
     public void displayHomeMenu() {
         Scanner scanner = new Scanner(System.in);
@@ -48,7 +50,7 @@ public class MenuDisplayController {
                             displayVehicleMenu();
                             break;
                         case 2:
-                            // Implement your logic for services menu
+                            displayServiceMenu();
                             break;
                         case 3:
                             System.out.println("Exiting...");
@@ -81,7 +83,9 @@ public class MenuDisplayController {
                 System.out.println("2. Lista");
                 System.out.println("3. Buscar");
                 System.out.println("4. Editar");
+                System.out.println("");
                 System.out.println("5. Volver");
+                System.out.println("");
                 System.out.println("Enter your option: ");
 
                 try {
@@ -89,7 +93,7 @@ public class MenuDisplayController {
 
                     switch (option) {
                         case 1:
-                            menuDisplayService.addVehicle();
+                            vehicleMenuDisplayService.addVehicle();
                             break;
                         case 2:
                             System.out.println("List of Vehicles:");
@@ -101,7 +105,7 @@ public class MenuDisplayController {
                             displayVehicleSearchMenu();
                             break;
                         case 4:
-                            menuDisplayService.editVehicle();
+                            vehicleMenuDisplayService.editVehicle();
                             break;
                         case 5:
                             displayHomeMenu();
@@ -135,7 +139,9 @@ public class MenuDisplayController {
                 System.out.println("====================");
                 System.out.println("1. Auto por Patente");
                 System.out.println("2. Autos por Fecha de Entrada");
+                System.out.println("");
                 System.out.println("3. Volver");
+                System.out.println("");
                 System.out.println("Enter your option: ");
 
                 try {
@@ -143,10 +149,10 @@ public class MenuDisplayController {
 
                     switch (option) {
                         case 1:
-                            menuDisplayService.findByPlate();
+                            vehicleMenuDisplayService.findVehicleByPlate();
                             break;
                         case 2:
-                            menuDisplayService.findByDate();
+                            vehicleMenuDisplayService.findVehicleByDate();
                             break;
                         case 3:
                             displayVehicleMenu();
@@ -171,8 +177,6 @@ public class MenuDisplayController {
     }
 
 
-
-
     public void displayServiceMenu() {
         Scanner scanner = new Scanner(System.in);
         int option;
@@ -186,7 +190,9 @@ public class MenuDisplayController {
                 System.out.println("2. Listar");
                 System.out.println("3. Buscar");
                 System.out.println("4. Editar");
+                System.out.println("");
                 System.out.println("5. Volver");
+                System.out.println("");
                 System.out.println("Enter your option: ");
 
                 try {
@@ -194,7 +200,7 @@ public class MenuDisplayController {
 
                     switch (option) {
                         case 1:
-                            menuDisplayService.addShopService();
+                            shopServiceMenuDisplay.addShopService();
                             break;
                         case 2:
                             System.out.println("List of Services:");
@@ -206,7 +212,7 @@ public class MenuDisplayController {
                             displayServiceSearchMenu();
                             break;
                         case 4:
-                            menuDisplayService.editService();
+                            shopServiceMenuDisplay.editShopService();
                             break;
                         case 5:
                             displayHomeMenu();
@@ -228,5 +234,44 @@ public class MenuDisplayController {
     }
 
     private void displayServiceSearchMenu() {
+        int option;
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            do {
+
+                System.out.println("====================");
+                System.out.println("    Service Search Menu");
+                System.out.println("====================");
+                System.out.println("1. por ID");
+                System.out.println("2. Volver");
+                System.out.println("Enter your option: ");
+
+                try {
+                    option = scanner.nextInt();
+
+                    switch (option) {
+                        case 1:
+                            shopServiceMenuDisplay.findShopServiceById();
+                            break;
+                        case 2:
+                            displayServiceMenu();
+                            break;
+                        default:
+                            System.out.println("No es una opción válida");
+                    }
+                } catch (InputMismatchException ex) {
+                    System.out.println("Invalid input. Please enter a valid option.");
+                    scanner.nextLine(); // Clear invalid input from the buffer
+                    option = 0; // Set a non-valid option to continue the loop
+                }
+
+            } while (option != 2);
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
+        }finally {
+            scanner.close();
+        }
+
     }
 }

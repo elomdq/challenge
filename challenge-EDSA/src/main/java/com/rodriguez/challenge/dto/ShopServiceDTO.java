@@ -1,5 +1,6 @@
 package com.rodriguez.challenge.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rodriguez.challenge.models.Vehicle;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -24,6 +25,7 @@ public class ShopServiceDTO implements Serializable {
     @NotNull
     private Double price;
     @NotNull
+    @JsonIgnoreProperties({"services"})
     private VehicleDTO vehicle;
 
     //setter and getters

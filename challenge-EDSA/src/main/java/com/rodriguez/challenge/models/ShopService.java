@@ -1,6 +1,7 @@
 package com.rodriguez.challenge.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity
+@Hidden
 @Table(name="services")
 public class ShopService implements Serializable {
 

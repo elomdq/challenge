@@ -16,6 +16,9 @@ public class VehicleDTO implements Serializable {
     private String chassisNumber;
     private List<ShopServiceDTO> services;
 
+    public VehicleDTO() {
+    }
+
     public Long getId() {
         return id;
     }

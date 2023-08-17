@@ -1,5 +1,6 @@
 package com.rodriguez.challenge.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
@@ -24,6 +25,8 @@ public class VehicleDTO implements Serializable {
     private String engineNumber;
     @NotBlank(message = "You can't leave the chassisNumber in blank")
     private String chassisNumber;
+
+    @JsonIgnoreProperties({"vehicle"})
     private List<ShopServiceDTO> services;
 
 

@@ -3,9 +3,7 @@ package com.rodriguez.client.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rodriguez.client.models.ShopServiceDTO;
 import com.rodriguez.client.models.VehicleDTO;
-import com.rodriguez.client.services.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,14 +13,11 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 @Service
-public class MenuDisplayService {
+public class VehicleMenuDisplayService {
     @Autowired
     private VehicleService vehicleService;
 
-    @Autowired
-    private ShopServiceService shopService;
-
-    public void findByPlate(){
+    public void findVehicleByPlate(){
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nIngresa la patente (Formatos Validos: XXX000 - XX00XX): ");
@@ -32,7 +27,7 @@ public class MenuDisplayService {
         scanner.close();
     }
 
-    public void findByDate(){
+    public void findVehicleByDate(){
         Scanner scanner = new Scanner(System.in);
         try{
             System.out.println("\nIngresa una fecha (Formato Valido: yyyy-mm-dd): ");
@@ -69,6 +64,8 @@ public class MenuDisplayService {
         }
     }
 
+
+
     public void editVehicle(){
         Scanner scanner = new Scanner(System.in);
 
@@ -87,30 +84,6 @@ public class MenuDisplayService {
 
             System.out.println("Editando...");
             System.out.println(vehicleService.update(vehicleDTO, id));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        } finally {
-            scanner.close();
-            System.out.println("Scanner cerrada");
-        }
-    }
-
-    public void addShopService() {
-        Scanner scanner = new Scanner(System.in);
-
-        try{
-            System.out.println("Ingrese un servicio en formato JSON {\"title\":\"\", \"description\":\"\", \"date\":\"\", \"price\":\"\"");
-            String jsonInput = scanner.nextLine();
-
-            System.out.println("Ingrese ID del Vehiculo: ");
-            Long id = scanner.nextLong();
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            ShopServiceDTO serviceDTO = objectMapper.readValue(jsonInput, ShopServiceDTO.class);
-
-            System.out.println("Agregando...");
-            System.out.println(shopService.create(serviceDTO));
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

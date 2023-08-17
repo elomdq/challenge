@@ -7,11 +7,18 @@ import java.util.Objects;
 public class ShopServiceDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private Long id;
     private String title;
     private String description;
     private LocalDate date;
     private Double price;
-    private VehicleDTO vehicleDTO;
+    private VehicleDTO vehicle;
+
+    public ShopServiceDTO() {
+    }
+
+    /*public ShopServiceDTO() {
+    }*/
 
     public String getTitle() {
         return title;
@@ -45,22 +52,22 @@ public class ShopServiceDTO implements Serializable {
         this.price = price;
     }
 
-    public VehicleDTO getVehicleDTO() {
-        return vehicleDTO;
+    public VehicleDTO getVehicle() {
+        return vehicle;
     }
 
-    public void setVehicleDTO(VehicleDTO vehicleDTO) {
-        this.vehicleDTO = vehicleDTO;
+    public void setVehicle(VehicleDTO vehicle) {
+        this.vehicle = vehicle;
     }
 
     @Override
     public String toString() {
-        return "ShopServiceDTO{" +
-                "title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", date=" + date +
-                ", price=" + price +
-                ", vehicleDTO=" + vehicleDTO +
+        return "ShopServiceDTO: {" +
+                "\"title\"=\"" + title + '\"' +
+                ", \"description\"=\"" + description + '\"' +
+                ", \"date\"=\"" + date + '\"' +
+                ", \"price\"=" + price +
+                ", \"vehicle\"=" + vehicle +
                 '}';
     }
 
@@ -69,11 +76,11 @@ public class ShopServiceDTO implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ShopServiceDTO that = (ShopServiceDTO) o;
-        return Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(date, that.date) && Objects.equals(price, that.price) && Objects.equals(vehicleDTO, that.vehicleDTO);
+        return Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(date, that.date) && Objects.equals(price, that.price) && Objects.equals(vehicle, that.vehicle);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, description, date, price, vehicleDTO);
+        return Objects.hash(title, description, date, price, vehicle);
     }
 }
