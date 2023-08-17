@@ -1,4 +1,4 @@
-package com.rodriguez.challenge.servicies;
+package com.rodriguez.challenge.services;
 
 import com.rodriguez.challenge.models.ShopService;
 

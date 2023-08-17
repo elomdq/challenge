@@ -17,20 +17,19 @@ public class ShopService implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Basic
     private String title;
+    @Basic
     private String description;
 
+    @Basic
     @Temporal(TemporalType.DATE)
     private LocalDate date;
+    @Basic
     private Double price;
     @ManyToOne
     @JsonBackReference
-    //@JoinColumn(name = "vehicle_id", referencedColumnName = "id")
-    @JoinColumns({
-            @JoinColumn(name = "vehicle_id", referencedColumnName = "id", nullable = false),
-            @JoinColumn(name ="plate", referencedColumnName = "plate", nullable = false)
-    })
+    @JoinColumn(name = "vehicle_id", referencedColumnName = "id", nullable = false)
     private Vehicle vehicle;
 
     public ShopService() {

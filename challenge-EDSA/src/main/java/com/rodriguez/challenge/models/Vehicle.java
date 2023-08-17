@@ -14,19 +14,27 @@ import java.util.Objects;
 public class Vehicle implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @Basic
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Basic
     private String brand;
+    @Basic
     private String color;
+    @Basic
     @Column(name = "vehicle_year")
     private String year;
-    @Column(unique = true, nullable = false)
-    @Pattern(regexp = "^(?i)([a-z]{3}\\d{3}|[a-z]{2}\\d{3}[a-z]{2})$", message = "Formato de patente incorrecto")
+    @Basic
+    @Column(unique = true)
+    @Pattern(regexp = "^(?i)([a-z]{3}\\d{3}|[a-z]{2}\\d{3}[a-z]{2})$", message = "Invalid license plate format")
     private String plate;
+    @Basic
     private String engineNumber;
+    @Basic
     private String chassisNumber;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "vehicle")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "vehicle", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<ShopService> services;
 
@@ -87,6 +95,14 @@ public class Vehicle implements Serializable {
 
     public void setChassisNumber(String chassisNumber) {
         this.chassisNumber = chassisNumber;
+    }
+
+    public List<ShopService> getServices() {
+        return services;
+    }
+
+    public void setServices(List<ShopService> services) {
+        this.services = services;
     }
 
     @Override

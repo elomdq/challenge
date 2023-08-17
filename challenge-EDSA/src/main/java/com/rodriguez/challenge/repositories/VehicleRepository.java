@@ -14,7 +14,11 @@ public interface VehicleRepository extends CrudRepository<Vehicle, Long> {
     @Query("select v from Vehicle v where v.plate = ?1")
     Optional<Vehicle> findByPlate(String plate);
 
+    //Optional<Vehicle> findOneByPlate(String plate);
+
     @Query("select v from Vehicle v right join v.services s where s.date = ?1")
     Iterable<Vehicle> findAllByDate(LocalDate date);
+
+
 
 }
