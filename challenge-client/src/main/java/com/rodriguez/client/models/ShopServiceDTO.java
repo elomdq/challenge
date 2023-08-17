@@ -1,5 +1,7 @@
 package com.rodriguez.client.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -12,6 +14,8 @@ public class ShopServiceDTO implements Serializable {
     private String description;
     private LocalDate date;
     private Double price;
+
+    @JsonIgnoreProperties({"services"})
     private VehicleDTO vehicle;
 
     public ShopServiceDTO() {

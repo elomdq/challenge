@@ -15,7 +15,11 @@ public class ConsoleApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        menuDisplayController.displayHomeMenu();
+        try{
+            menuDisplayController.displayHomeMenu();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

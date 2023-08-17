@@ -17,18 +17,17 @@ public class VehicleMenuDisplayService {
     @Autowired
     private VehicleService vehicleService;
 
-    public void findVehicleByPlate(){
+    @Autowired
+    Scanner scanner;
 
-        Scanner scanner = new Scanner(System.in);
+    public void findVehicleByPlate(){
         System.out.println("\nIngresa la patente (Formatos Validos: XXX000 - XX00XX): ");
         String plate = scanner.nextLine();
 
         System.out.println(vehicleService.findByPlate(plate));
-        scanner.close();
     }
 
     public void findVehicleByDate(){
-        Scanner scanner = new Scanner(System.in);
         try{
             System.out.println("\nIngresa una fecha (Formato Valido: yyyy-mm-dd): ");
             String date = scanner.nextLine();
@@ -38,14 +37,10 @@ public class VehicleMenuDisplayService {
             System.out.println(vehicleService.findByDate(searchDate));
         }catch (InputMismatchException | DateTimeParseException ex){
             System.out.println("Hubo problemas con el formato de la fecha, intenta de nuevo.");
-        }finally {
-            scanner.close();
         }
     }
 
     public void addVehicle(){
-        Scanner scanner = new Scanner(System.in);
-
         try{
             System.out.println("Ingrese el vehiculo en formato JSON {\"brand\":\"\", \"color\":\"\", \"year\":\"\", \"plate\":\"\", \"engineNumber\":\"\" ,\"chassisNumber\":\"\"}");
             String jsonInput = scanner.nextLine();
@@ -58,17 +53,12 @@ public class VehicleMenuDisplayService {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-        } finally {
-            scanner.close();
-            System.out.println("Scanner cerrada");
         }
     }
 
 
 
     public void editVehicle(){
-        Scanner scanner = new Scanner(System.in);
-
         try{
             System.out.println("Ingrese el id del auto a modificar: ");
             Long id = scanner.nextLong();
@@ -87,9 +77,20 @@ public class VehicleMenuDisplayService {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-        } finally {
-            scanner.close();
-            System.out.println("Scanner cerrada");
+        }
+    }
+
+    public void deleteVehicle() {
+        System.out.println("Ingrese el id del vehiculo a eliminar: ");
+
+        try{
+            Long id = scanner.nextLong();
+            scanner.nextLine();
+
+            System.out.println("Borrando...");
+            vehicleService.delete(id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

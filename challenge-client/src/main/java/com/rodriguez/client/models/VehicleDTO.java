@@ -1,5 +1,7 @@
 package com.rodriguez.client.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,6 +16,8 @@ public class VehicleDTO implements Serializable {
     private String plate;
     private String engineNumber;
     private String chassisNumber;
+
+    @JsonIgnoreProperties({"vehicle"})
     private List<ShopServiceDTO> services;
 
     public VehicleDTO() {

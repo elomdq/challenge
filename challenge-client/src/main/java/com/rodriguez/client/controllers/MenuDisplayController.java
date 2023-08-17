@@ -16,11 +16,11 @@ import java.util.Scanner;
 public class MenuDisplayController {
 
     @Autowired
-    VehicleMenuDisplayService vehicleMenuDisplayService;
-
+    private VehicleMenuDisplayService vehicleMenuDisplayService;
     @Autowired
-    ShopServiceMenuDisplay shopServiceMenuDisplay;
-
+    private ShopServiceMenuDisplay shopServiceMenuDisplay;
+    @Autowired
+    private Scanner scanner;
     @Autowired
     private VehicleService vehicleService;
     @Autowired
@@ -28,7 +28,6 @@ public class MenuDisplayController {
 
 
     public void displayHomeMenu() {
-        Scanner scanner = new Scanner(System.in);
         int option;
 
         try {
@@ -58,20 +57,17 @@ public class MenuDisplayController {
                         default:
                             System.out.println("Invalid option. Please select a valid option.");
                     }
-                } catch (InputMismatchException ex) {;
-                    scanner.nextLine(); // Clear invalid input from the buffer
+                } catch (InputMismatchException ex) {
                     option = 0; // Set a non-valid option to continue the loop
                 }
             } while (option != 3);
+            System.exit(0);
         } catch (RuntimeException ex) {
             ex.printStackTrace();
-        } finally {
-            scanner.close();
         }
     }
 
     public void displayVehicleMenu() {
-        Scanner scanner = new Scanner(System.in);
         int option;
 
         try {
@@ -83,13 +79,15 @@ public class MenuDisplayController {
                 System.out.println("2. Lista");
                 System.out.println("3. Buscar");
                 System.out.println("4. Editar");
+                System.out.println("5. Borrar");
                 System.out.println("");
-                System.out.println("5. Volver");
+                System.out.println("6. Volver");
                 System.out.println("");
                 System.out.println("Enter your option: ");
 
                 try {
                     option = scanner.nextInt();
+                    scanner.nextLine();
 
                     switch (option) {
                         case 1:
@@ -108,21 +106,21 @@ public class MenuDisplayController {
                             vehicleMenuDisplayService.editVehicle();
                             break;
                         case 5:
+                            vehicleMenuDisplayService.deleteVehicle();
+                            break;
+                        case 6:
                             displayHomeMenu();
                             break;
                         default:
                             System.out.println("Invalid option. Please select a valid option.");
                     }
-                } catch (InputMismatchException ex) {
+                } catch (Exception ex) {
                     System.out.println("Invalid input. Please enter a valid option.");
-                    scanner.nextLine(); // Clear invalid input from the buffer
-                    option = 0; // Set a non-valid option to continue the loop
+                    option = 0;
                 }
-            } while (option != 4);
+            } while (option != 6);
         } catch (RuntimeException ex) {
             ex.printStackTrace();
-        } finally {
-            scanner.close();
         }
     }
 
@@ -131,9 +129,6 @@ public class MenuDisplayController {
 
         try {
             do {
-                Scanner scanner = new Scanner(System.in);
-
-
                 System.out.println("====================");
                 System.out.println("    Vehicle Search Menu");
                 System.out.println("====================");
@@ -146,6 +141,7 @@ public class MenuDisplayController {
 
                 try {
                     option = scanner.nextInt();
+                    scanner.nextLine();
 
                     switch (option) {
                         case 1:
@@ -162,23 +158,16 @@ public class MenuDisplayController {
                     }
                 } catch (InputMismatchException ex) {
                     System.out.println("Invalid input. Please enter a valid option.");
-                    scanner.nextLine(); // Clear invalid input from the buffer
-                    option = 0; // Set a non-valid option to continue the loop
+                    option = 0;
                 }
-
-                scanner.close();
-
             } while (option != 3);
         } catch (RuntimeException ex) {
             ex.printStackTrace();
-        } finally {
-
         }
     }
 
 
     public void displayServiceMenu() {
-        Scanner scanner = new Scanner(System.in);
         int option;
 
         try {
@@ -190,13 +179,15 @@ public class MenuDisplayController {
                 System.out.println("2. Listar");
                 System.out.println("3. Buscar");
                 System.out.println("4. Editar");
+                System.out.println("5. Borrar");
                 System.out.println("");
-                System.out.println("5. Volver");
+                System.out.println("6. Volver");
                 System.out.println("");
                 System.out.println("Enter your option: ");
 
                 try {
                     option = scanner.nextInt();
+                    scanner.nextLine();
 
                     switch (option) {
                         case 1:
@@ -215,6 +206,9 @@ public class MenuDisplayController {
                             shopServiceMenuDisplay.editShopService();
                             break;
                         case 5:
+                            shopServiceMenuDisplay.borrarShopService();
+                            break;
+                        case 6:
                             displayHomeMenu();
                             break;
                         default:
@@ -222,20 +216,16 @@ public class MenuDisplayController {
                     }
                 } catch (InputMismatchException ex) {
                     System.out.println("Invalid input. Please enter a valid option.");
-                    scanner.nextLine(); // Clear invalid input from the buffer
-                    option = 0; // Set a non-valid option to continue the loop
+                    option = 0;
                 }
-            } while (option != 4);
+            } while (option != 6);
         } catch (RuntimeException ex) {
             ex.printStackTrace();
-        } finally {
-            scanner.close();
         }
     }
 
     private void displayServiceSearchMenu() {
         int option;
-        Scanner scanner = new Scanner(System.in);
 
         try {
             do {
@@ -249,6 +239,7 @@ public class MenuDisplayController {
 
                 try {
                     option = scanner.nextInt();
+                    scanner.nextLine();
 
                     switch (option) {
                         case 1:
@@ -262,15 +253,12 @@ public class MenuDisplayController {
                     }
                 } catch (InputMismatchException ex) {
                     System.out.println("Invalid input. Please enter a valid option.");
-                    scanner.nextLine(); // Clear invalid input from the buffer
-                    option = 0; // Set a non-valid option to continue the loop
+                    option = 0;
                 }
 
             } while (option != 2);
         } catch (RuntimeException ex) {
             ex.printStackTrace();
-        }finally {
-            scanner.close();
         }
 
     }

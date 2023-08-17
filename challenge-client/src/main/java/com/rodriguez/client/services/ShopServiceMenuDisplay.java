@@ -13,18 +13,18 @@ public class ShopServiceMenuDisplay {
     @Autowired
     private ShopServiceService shopService;
 
-    public void findShopServiceById(){
+    @Autowired
+    Scanner scanner;
 
-        Scanner scanner = new Scanner(System.in);
+    public void findShopServiceById(){
         System.out.println("\nIngresa el ID del servicio: ");
         Long id = scanner.nextLong();
+        scanner.nextLine();
 
         System.out.println(shopService.findById(id));
-        scanner.close();
     }
 
     public void addShopService() {
-        Scanner scanner = new Scanner(System.in);
 
         try{
             System.out.println("Ingrese un servicio en formato JSON {\"title\":\"\", \"description\":\"\", \"price\":\"\",\"vehicle\":{\"id\":\"\"}}");
@@ -40,14 +40,10 @@ public class ShopServiceMenuDisplay {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-        } finally {
-            scanner.close();
-            System.out.println("Scanner cerrada");
         }
     }
 
     public void editShopService() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese el id del servicio a modificar: ");
 
         try{
@@ -64,12 +60,25 @@ public class ShopServiceMenuDisplay {
 
             System.out.println("Editando...");
             System.out.println(shopService.update(serviceDTO, id));
+            System.out.wait(3000);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
-        } finally {
-            scanner.close();
-            System.out.println("Scanner cerrada");
+        }
+    }
+
+    public void borrarShopService() {
+        System.out.println("Ingrese el id del servicio a eliminar: ");
+
+        try{
+            Long id = scanner.nextLong();
+            scanner.nextLine();
+
+            System.out.println("Borrando...");
+            shopService.delete(id);
+            System.out.wait(3000);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }
